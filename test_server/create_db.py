@@ -6,7 +6,7 @@ PASSWORD = "sarOtah"
 HOST = "127.0.0.1"
 PORT = "5432"
 
-def create_table_database(cur):
+def create_table_database(con, cur):
     cur.execute("DROP TABLE IF EXISTS PATIENT")
     cur.execute('''CREATE TABLE PATIENT
           (PATIENTID INT PRIMARY KEY     NOT NULL,
@@ -33,8 +33,9 @@ def create_table_database(cur):
                     ON UPDATE CASCADE ON DELETE CASCADE
             )
         ''')
+    con.commit()
 
-def insert_to_database(cur):
+def insert_to_database(con, cur):
     patients_list = [
             [1, 'A', 38, 68, 'x'],
             [2, 'C', 52, 87, 'x'],
@@ -85,12 +86,13 @@ def insert_to_database(cur):
             [2,13],
             [2,14]
         ]
-    # try:
-    #     for row in patients_list:
-    #         cur.execute("INSERT INTO PATIENT (PATIENTID,NAME,AGE,WEIGHT,TREATMENT) \
-    #             VALUES (%i, '%s', %i, %i, '%s')"%(row[0],row[1],row[2], row[3], row[4]))
-    # except Exception as e:
-    #     print (e)
+    try:
+        for row in patients_list:
+            cur.execute("INSERT INTO PATIENT (PATIENTID,NAME,AGE,WEIGHT,TREATMENT) \
+                VALUES (%i, '%s', %i, %i, '%s')"%(row[0],row[1],row[2], row[3], row[4]))
+    except Exception as e:
+        print (e)
+    con.commit()
     try:
         for row in Image_list:
             cur.execute("INSERT INTO IMAGE (IMAGEID,NAME,FULLPATH) \
@@ -99,13 +101,14 @@ def insert_to_database(cur):
             #     WHERE IMAGEID = %i"%(row[2],row[0]))
     except Exception as e:
         print (e)
+    con.commit()
     try:
         for row in patient_image:
             cur.execute("INSERT INTO PATIENT_IMAGE (PATIENTID,IMAGEID) \
                 VALUES (%i, %i)"%(row[0],row[1]))
     except Exception as e:
         print (e)
-
+    con.commit()
 
 def read_db(cur, table):
     cur.execute('SELECT * FROM %s'%table)
@@ -117,9 +120,8 @@ def main():
     con = psycopg2.connect(database=DATABASE, user=USER, password=PASSWORD, host=HOST, port=PORT)
     print("Database opened successfully")
     cur = con.cursor()
-    create_table_database(cur)
-    insert_to_database(cur)
-    con.commit()
+    create_table_database(con, cur)
+    insert_to_database(con, cur)
     # this function is to test that your database is created correctly
     # read_db(cur, 'IMAGE')
 if __name__ == "__main__":
