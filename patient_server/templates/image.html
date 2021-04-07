@@ -1,0 +1,32 @@
+<form method="get">
+<button name="homeBtn" formaction="/home" type="submit">Home</button>
+</form>
+
+<!-- <button name="imageBtn" formaction="/image" type="submit">Image</button>
+<button name="plotBtn" formaction="/plot" type="submit">Plot</button>
+ -->
+ Patient ID: 
+ {{user_image}} 
+<form method="POST">
+    <input value={{p_id}} name="p_id">
+    <input type="submit">
+<label for="images">Choose Image:</label>
+<select id="images" name="images" method="POST">
+     {% for row in rows %}
+    
+    if ({{ row[2] }} == {{select_image}}) {
+    <option value="{{ row[2] }}" SELECTED>{{ row[1] }}</option>
+}
+else {
+    <option value="{{ row[2] }}">{{ row[1] }}</option>
+}
+   
+    {% endfor %}
+</select>
+<button type="load" class="btn btn-default">Go</button>
+</form>
+
+<body>
+    <img src="{{ user_image }}" alt="User Image">
+</body>
+</html>
