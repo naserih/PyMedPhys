@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>About DicomFortable</title>
+  </head>
+  <style>
+  body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.btn
+    {
+        margin:0px;
+        /*width:30px;*/
+        /*height:30px;*/
+        background-color: #00386c;
+
+  border: none;
+  color: #f1d1bd;
+  padding: 3px 10px;
+  cursor: pointer;
+  font-size: 20px;
+    }
+    .ico
+    {
+        margin:0px;
+        /*width:30px;*/
+        /*height:30px;*/
+        background-color: #00386c;
+
+  border: none;
+  color: #f1d1bd;
+  padding: 2px 8px;
+  /*cursor: pointer;*/
+  /*font-size: 20px;*/
+    }
+
+        /* Darker background on mouse-over */
+.btn:hover {
+  background-color: #808080;
+  /*background-color: #00386c;*/
+}
+.pink {
+  background-color: Transparent;
+   color: #FA8072;
+    font-size: 22px;
+}
+.pink:hover {
+  background-color: Transparent;
+  color: #808080;
+  /*background-color: #00386c;*/
+}
+    .orange{
+      background-color:#ff8c00;
+    }
+    .red{
+      /*background-color:#5e0000;*/
+      background-color:#8b0000;
+
+    }
+
+    .green{
+      background-color:green;
+
+    }
+    .darkgray{
+      background-color:darkgray;
+
+
+}
+
+    .preClass{
+      font-size: 16px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      line-height: 60%;
+    }
+
+</style>
+  <body>
+    {% extends "template.html" %}
+    {% block content %}
+    
+    <h1> About DICOMFortable </h1>
+    <p> DICOMFortable is a DICOM 3D bone metastasis tool developed using the Python Flask framework.
+    </p>
+<h1> <mark> Note: I had to remove the toggling of the buttons since they were not functioning properly on the server. I highlighted them in the current manual.</mark></h1>
+<h1> BUTTONS </h1>
+<pre class="preClass"> 
+  <li><i class="fas fa-key"></i> <strong> ACCESS KEY:</strong> You need access key to log in to the app  </li>
+  <li><i class="ico fas fa-info-circle pink"></i><strong> INFO:      </strong> Opens the help page in a new tab </li>
+  <li><i class="ico fas fa-undo"></i><strong> UNDO:      </strong> Remives the last captured point </li>
+  <li><i class="ico fas fa-chevron-left"></i><strong> PREVIOUS:  </strong>  Loads the previous patient  </li>
+  <li><i class="ico fas fa-chevron-right"></i><strong> NEXT:      </strong> Loads the next patient </li>
+  <li><i class="ico fas fa-sync orange"></i><strong> RELOAD:    </strong> Reloads the current patient </li>
+  <li><i class="ico fas fa-search-plus"></i><strong> ZOOM IN:   </strong> Upscales the view </li>
+  <li><i class="ico fas fa-search-minus"></i><strong> ZOOM OUT:  </strong> Downscales the view </li>
+  <li><i class="ico far fa-dot-circle red"></i><strong> CAPTURE:   </strong> Captures the indicator's position </li>
+  <li><i class="ico far fa-edit"></i><strong> SAVE:      </strong> Saves the selected points </li>
+  <li><i class="fas fa-adjust"></i> <strong> WINDOW:    </strong> Adjusts the axial window center. </li>
+     <li><i class="fas fa-arrows-alt-h"></i><strong> LEVEL:     </strong> Adjusts the axial window width.</li>
+   </pre>
+
+<h1> ACTIONS </h1>
+<pre class="preClass"> 
+  <li> <strong>SCROLL:      </strong> Mouse wheel scroll in each view changes moves the slide in that view.   </li>
+  <li> <strong>DOUBLE CLICK:</strong> Double click on a point in each view moves the indicator to that point.   </li>
+  <li> <strong>DRAG:        </strong> Holding the left mouse button and move the mouse to pan each view. </li>
+  <li> <strong>SLIDE:       </strong> Indicators can be moved usin vertical and horizontal scales in each view  </li>
+</pre>
+
+<h1> TIPS </h1>
+<p> 
+  <li>The <strong>HELP</strong> button will redirect you to this help page.</li>
+  <li>Please check your email for the access key or email <a href = "mailto: hossein.naseri@mail.mcgill.ca">me</a> if your access key is not working.</li>
+  <li> Press <strong>RELOAD</strong> if the background color of the <strong>RELOAD</strong> button is orange. <mark>one reload should be enough</mark></li>
+  <li> Window and level adjustments will be set for the current patient only.</li>
+  <li> Window/Level are not adjustable in the sagittal and coronal views yet.</li>
+  <li> The captured points will <span style="text-decoration: underline;">NOT</span> be saved into the database if you do not press the  <strong>SAVE</strong> button! </li>
+  <li> You can capture more points or remove points from the list and press the <strong>SAVE</strong> button to overwrite the previous list</li>
+  <li> The frames, scalings and views will reload if you press the reload button or go to the previous/next patient.</li>
+  <li> The program will <span style="text-decoration: underline;">NOT</span> allow you to move to the next/previous patients if there are unsaved points.</li>
+  <li> reloading the frame will <span style="text-decoration: underline;">NOT</span> remove the points that saved to the database.</li>
+  <li> Pressing the <strong>SAVE</strong> button will overwrite the points for the current patient only. </li>
+  <li> You need to use your access key to log into the app if you refresh your browser. </li>
+  <li> If you refresh the page only new patients (non labeled ones) will be loaded to the app. </li>
+  <li> Previously-labeled patient data will not be accessable if you refresh the page. I should manually remove that patient from the database if you want to have access to them. </li>
+   </p>
+
+<h1> How to Use </h1>
+    <p>Using your <strong>ACCESS KEY</strong> <i class="fas fa-key"></i> log into the DICOMFortable app.</p> 
+    Once loaded, you will see a 3D view of DICOM files for the first patient. <p> Press <i class="ico fas fa-sync orange"></i> to fully load patients' data. The background color of the reload button will turn green if the patient's data is correctly loaded <i class="ico fas fa-sync green"></i> </p> <p> Use
+    <i class="fas fa-adjust"></i> and <i class="fas fa-arrows-alt-h"></i> buttons to adjust the window center and window width in the axial view.
+    <p> Use <strong>ZOOM IN</strong> (<i class="ico fas fa-search-plus"></i>) and <strong>ZOOM OUT</strong>(<i class="ico fas fa-search-minus"></i>) buttons to zoom in and zoom out the views. All three views will be magnified at the same time. </p>
+    <p> Click and hold down the left mouse button to pan in each view.  Other views will be adjusted accordingly. </p>
+    <p> Use the mouse wheel scroll in any of the views to change slices in that view. Other views will be adjusted accordingly.</p>
+    <p> Use the mouse double click in the any of the views to set the indicator position to the desired point in all 3 views. 
+    <p> Once the indicator is in the center of the bone met in all three views, click the <strong>CAPTURE</strong> (<i class="ico far fa-dot-circle red"></i>) button to capture the position of the bone met center. The bone met 3D pixel position will be added to the list on the left side of the window. <li> Note 1: Multiple bone met centers can be captured for each patient. </li></p>
+    <p> Pressing the <strong>UNDO</strong> (<i class="ico fas fa-undo"></i>) button will remove the last captured point from the list. </p>
+    <p> Click on the <strong>SAVE</strong> (<i class="ico far fa-edit"></i>) button to save the captured points. The button will be switched to the <strong>CHECKED BOX</strong> (<i class="ico far fa-check-square green"></i>) icon, once the points are stored in the database. 
+    </p>
+    <p> Use  <strong>PREVIOUS</strong> (<i class="ico fas fa-chevron-left"></i>) or <strong>NEXT</strong> (<i class="ico fas fa-chevron-right"></i>) buttons to load the previous or next patient. Then, press <strong>RELOAD</strong> (<i class="ico fas fa-sync orange"></i>) button to reload the patient's metadata.</li>
+    
+  </p>
+  <p> By pressing the <strong>RELOAD</strong> (<i class="ico fas fa-sync orange"></i>) button at any stage, the setting will be reset and the captured points will be removed. The saved points will  <span style="text-decoration: underline;">NOT</span> be removed if you <strong>RELOAD</strong> the page.
+    {% endblock %}
+  </body>
+</html>
+
