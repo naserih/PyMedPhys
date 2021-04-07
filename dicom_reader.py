@@ -1,15 +1,8 @@
 #pydicom
 import os
 import pydicom
-# from pydicom.filereader import read_dicomdir
 import numpy as np
-import scipy
-# import cv2
-import csv
-from PIL import Image, ImageDraw
 import matplotlib.pyplot as plt
-
-
 
 
 def get_rt_structure(RT_struct_path):
@@ -19,17 +12,18 @@ def get_rt_structure(RT_struct_path):
     else:
         print('Error')
     ds = pydicom.read_file(RT_struct_file)
-    print(ds.Modality)
-    print (dir(ds))
-    print("----------------------------------")
+    # print(ds.Modality)
+    # print (dir(ds))
+    # print("----------------------------------")
     dose_refs = []
     dose_ref = ds.StructureSetROISequence
-    print(dir(dose_ref[0]))
-    print(dose_ref[0].ROIName)
+    # print(dir(dose_ref[0]))
+    # print(dose_ref[0].ROIName)
     for dose in dose_ref:
         # print dose.dir()
-        if 'DoseReferencePointCoordinates' in dose.dir():
-            dose_refs.append(dose.ROIName)
+        # if 'DoseReferencePointCoordinates' in dose.dir():
+            # pass
+        dose_refs.append(dose.ROIName)
     # print '------>', dose_refs
     return dose_refs
 
@@ -54,7 +48,32 @@ def convert_dose(RT_dose_path):
     y = np.arange(rows)*pixel_spacing[1] + image_position[1]
     z = np.array(ds.GridFrameOffsetVector) + image_position[2]
     beam_center = (np.argmin(abs(x)),np.argmin(abs(y)),np.argmin(abs(z)))
+    # plt.set_cmap('hot_r')
+    # plt.set_cmap('hsv_r')
+    # plt.set_cmap('gist_rainbow')
+    plt.set_cmap('RdYlBu_r')
+    # plt.imshow(dose_pixel[125,:,:], origin='lower')
+    plt.imshow(dose_pixel[:,125,:], origin='lower')
+    # plt.imshow(dose_pixel[:,:,150], origin='lower')
+    plt.show()
     return dose_pixel, x,y,z, pixel_spacing
+
+# to convert pixcel value to HU
+def convert_to_hu(ct_array, ds):
+    intercept = ds.RescaleIntercept
+    slope = ds.RescaleSlope
+    print (slope, intercept)
+    hu_image = ct_array * slope + intercept
+    return hu_image
+
+# to adjust window center and width
+def window_image(image, window_center, window_width):
+    img_min = window_center - window_width // 2
+    img_max = window_center + window_width // 2
+    window_image = image.copy()
+    window_image[window_image < img_min] = img_min
+    window_image[window_image > img_max] = img_max   
+    return window_image
 
 def get_cts(CT_files_path):
     CT_files = [os.path.join(CT_files_path, f) for f in os.listdir(CT_files_path)]
@@ -102,13 +121,21 @@ def get_cts(CT_files_path):
     # Append z spacing so you have x,y,z spacing for the array.
     ct_pixel_spacing.append(z_spacing)
 
+    print(z_spacing)
     # Build the z ordered 3D CT dataset array.
     ct_array = np.array([slices[i] for i in z])
 
+    # convert pixcel image to HU
+    ct_array = convert_to_hu(ct_array, ds)
+
+    # filter bone
+    ct_array = window_image(ct_array, 400, 1000)
+    
     print(ct_array.shape)    
+    plt.style.use('grayscale')
     # plt.imshow(ct_array[50,:,:], origin='lower')
-    plt.imshow(ct_array[:,255,:], origin='lower')
-    # plt.imshow(ct_array[:,:,255], origin='lower')
+    # plt.imshow(ct_array[:,255,:], origin='lower')
+    plt.imshow(ct_array[:,:,255], origin='lower')
     plt.show()
     # Now construct the coordinate arrays
     # print ct_pixel_spacing, image_position
@@ -127,8 +154,10 @@ def main():
     RT_dose_path = './SAMPLE_DICOM/RTdose'
     RT_struct_path = './SAMPLE_DICOM/RTstruct'
     CT_files_path = './SAMPLE_DICOM/CT/'
-    get_cts(CT_files_path)
-    # print(convert_dose(RT_dose_path))
-    # get_rt_structure(RT_struct_path)
+    ct_array, ct_x,ct_y,ct_z, ct_pixel_spacing = get_cts(CT_files_path)
+
+    # dose_pixel, dose_x,dose_y,dose_z, dose_pixel_spacing= convert_dose(RT_dose_path)
+    # dose_refs = get_rt_structure(RT_struct_path)
+    print(dose_refs)
 if __name__ == "__main__":
     main()
