@@ -1,5 +1,4 @@
-# Creating Web Applications Using Python, Flask, and Postgres
-
+# Python for Medical Physicists
 ## Introduction:
 Welcome to the "Python for Medical Physicists" course, a comprehensive learning journey designed by Dr. Hossein Naseri at the McGill Medical Physics Unit. This repository serves as a crucial component of the course materials, providing you with the resources needed to delve into the exciting realm of Python programming tailored specifically for medical physicists.
 
@@ -14,6 +13,8 @@ Venture into the realm of machine learning with Python, where you'll explore the
 Additionally, we recognize the importance of version control, writing test cases, and project deployment in a professional programming environment. You'll master these essential skills, ensuring that your code is robust, error-free, and ready for deployment in real-world scenarios.
 
 Embark on this enriching learning experience, where the fusion of Python programming and medical physics opens up a world of possibilities. Get ready to transform your understanding of coding and apply it to the dynamic and innovative field of medical physics. Let's code for a healthier future!
+
+# Creating Web Applications Using Python, Flask, and Postgres
 
 ## Requirements:
 ### Python virtual environment
