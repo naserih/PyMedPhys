@@ -1,5 +1,19 @@
 # Creating Web Applications Using Python, Flask, and Postgres
 
+## Introduction:
+Welcome to the "Python for Medical Physicists" course, a comprehensive learning journey designed by Dr. Hossein Naseri at the McGill Medical Physics Unit. This repository serves as a crucial component of the course materials, providing you with the resources needed to delve into the exciting realm of Python programming tailored specifically for medical physicists.
+
+Throughout this course, you will embark on a learning adventure that covers the fundamentals of Python programming, equipping you with essential skills to navigate the world of coding with confidence. From grasping the basics of Python syntax to exploring advanced concepts, you will gain a solid foundation that forms the backbone of your programming proficiency.
+
+But that's not all. Our curriculum extends beyond conventional programming. You'll discover how to design and create web applications, unlocking the potential to develop interactive and user-friendly interfaces. Dive into the intricacies of database interaction, gaining valuable insights into managing and manipulating data for your medical physics endeavors.
+
+As a medical physicist, understanding and working with DICOM images is paramount. In this course, we dedicate a significant portion of the curriculum to guide you through the intricacies of handling DICOM images using Python, empowering you to leverage this knowledge in your medical imaging projects.
+
+Venture into the realm of machine learning with Python, where you'll explore the basics of this transformative technology. Gain hands-on experience in implementing machine learning algorithms, allowing you to harness the power of data-driven insights in your medical physics applications.
+
+Additionally, we recognize the importance of version control, writing test cases, and project deployment in a professional programming environment. You'll master these essential skills, ensuring that your code is robust, error-free, and ready for deployment in real-world scenarios.
+
+Embark on this enriching learning experience, where the fusion of Python programming and medical physics opens up a world of possibilities. Get ready to transform your understanding of coding and apply it to the dynamic and innovative field of medical physics. Let's code for a healthier future!
 
 ## Requirements:
 ### Python virtual environment
